@@ -1,0 +1,224 @@
+{
+	"pluginAlias": "HttpThermostat",
+	"pluginType": "accessory",
+	"singular": false,
+	"headerDisplay": "Integrate HTTP based thermostat controllers.",
+	"footerDisplay": "",
+	"schema": {
+		"type": "object",
+		"properties": {
+			"name": {
+				"title": "Name",
+				"type": "string",
+				"required": true,
+				"default": "My Thermostat"
+			},
+			"apiroute": {
+				"type": "string",
+				"title": "Route to Thermostat",
+				"description": "The base URL of your thermostat's API. This is the URL that will be used to communicate with the device.",
+				"required": true,
+				"placeholder": "http:/localhost:8000",
+				"format": "uri"
+			},
+			"http_method": {
+				"type": "string",
+				"title": "HTTP Method",
+				"description": "HTTP method used to communicate with the device.",
+				"default": "GET",
+				"enum": [
+					"GET",
+					"PUT",
+					"POST",
+					"DELETE",
+					"HEAD"
+				]
+			},
+			"validStates": {
+        "title": "Valid States",
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "title": "Mode",
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2,
+            3
+					]
+				}
+      },
+			"temperatureDisplayUnits": {
+				"title": "Temperature Display Units",
+				"type": "integer",
+				"default": 0,
+				"oneOf": [
+					{ "title": "Celsius", "enum": [0] },
+					{ "title": "Fahrenheit", "enum": [1] }
+				]
+			},
+			"currentRelativeHumidity": {
+				"title": "Current Relative Humidity",
+				"type": "boolean",
+				"default": false,
+				"description": "Whether to include `currentRelativeHumidity` as a field in `/status`."
+			},
+			"maxTemp": {
+				"title": "Maximum Temperature",
+				"type": "number",
+				"placeholder": 30,
+				"description": "Upper bound for the temperature selector in the Home app.",
+				"minimum": 0
+			},
+			"minTemp": {
+				"title": "Minimum Temperature",
+				"type": "number",
+				"placeholder": 15,
+				"description": "Lower bound for the temperature selector in the Home app.",
+				"minimum": 0
+			},
+			"minSetTemp": {
+				"title": "Minimum Set Temperature",
+				"type": "number",
+				"placeholder": 0.5,
+				"description": "Minimum increment value for the temperature selector in the Home app.",
+				"minimum": 0
+			},
+			"temperatureThresholds": {
+				"title": "Temperature Thresholds",
+				"type": "boolean",
+				"default": false,
+				"description": "Whether you want the thermostat accessory to have heating and cooling temperature thresholds."
+			},
+			"listener": {
+				"title": "Enable Listener",
+				"type": "boolean",
+				"default": false,
+				"description": "Whether to start a listener to get real-time changes from the device."
+			},
+			"pollInterval": {
+				"title": "Poll interval [s]",
+				"type": "integer",
+				"description": "Time (in seconds) between device polls.",
+				"placeholder": 300,
+				"minimum": 0
+			},
+			"checkupDelay": {
+				"title": "Checkup Delay [ms]",
+				"type": "integer",
+				"placeholder": 2000,
+				"description": "Time (in milliseconds) after setting `HeatingCoolingState` to update `targetHeatingCoolingState` and `currentHeatingCoolingState`.",
+				"minimum": 0
+			},
+			"timeout": {
+				"title": "Timeout [ms]",
+				"type": "integer",
+				"placeholder": 3000,
+				"description": "Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable.",
+				"minimum": 0
+			},
+			"port": {
+				"title": "Port",
+				"type": "integer",
+				"placeholder": 3000,
+				"description": "Port for your HTTP listener (if enabled).",
+				"minimum": 0
+			},
+			"username": {
+				"title": "Username",
+				"type": "string",
+				"description": "Username if HTTP authentication is requiered."
+			},
+			"password": {
+				"title": "Password",
+				"type": "string",
+				"description": "Password if HTTP authentication is requiered."
+			},
+			"model": {
+				"title": "Model",
+				"type": "string",
+				"description": "Model of the thermostat."
+			},
+			"serial": {
+				"title": "Serial Number",
+				"type": "string",
+				"description": "Serial number of the thermostat."
+			},
+			"manufacturer": {
+				"title": "Manufacturer",
+				"type": "string",
+				"description": "Manufacturer of the thermostat."
+			},
+			"firmware": {
+				"title": "Firmware Version",
+				"type": "string",
+				"description": "Firmware version of the thermostat."
+			}
+		}
+	},
+	"layout": [
+		{
+			"type": "flex",
+			"flex-flow": "row wrap",
+			"items": [
+				"name"
+			]
+		},
+		{
+			"type": "fieldset",
+			"title": "Basic Settings",
+			"expandable": true,
+			"items": [
+				"apiroute",
+				"http_method",
+				"pollInterval",
+				"validStates",
+				"temperatureDisplayUnits"
+			]
+		},
+		{
+			"type": "fieldset",
+			"title": "HTTP Settings",
+			"expandable": true,
+			"items": [
+				"checkupDelay",
+				"timeout",
+				"username",
+				"password"
+			]
+		},
+		{
+			"type": "fieldset",
+			"title": "Listener Settings",
+			"expandable": true,
+			"items": [
+				"listener",
+				"port"
+			]
+		},
+		{
+			"type": "fieldset",
+			"title": "Temperature Settings",
+			"expandable": true,
+			"items": [
+				"currentRelativeHumidity",
+				"maxTemp",
+				"minTemp",
+				"minSetTemp",
+				"temperatureThresholds"
+			]
+		},
+		{
+			"type": "fieldset",
+			"title": "Additional Settings",
+			"expandable": true,
+			"items": [
+				"model",
+				"serial",
+				"manufacturer",
+				"firmware"
+			]
+		}
+	]
+}

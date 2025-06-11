@@ -1,0 +1,48 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "AA:BB:CC:DD:EE:01",
+        "port": 51826,
+        "pin": "031-45-154"
+    },
+    "description": "HomeBridge HTTP Status Control",
+    "plugins": [
+        "homebridge-http-thermostat",
+        "homebridge-config-ui-x"
+    ],
+    "platforms": [
+        {
+            "name": "Config",
+            "port": 8581,
+            "auth": "none",
+            "theme": "orange",
+            "lightingMode": "auto",
+            "menuMode": "default",
+            "tempUnits": "c",
+            "lang": "auto",
+            "platform": "config"
+        }
+    ],
+    "accessories": [
+        {
+            "name": "Dummy Thermostat",
+            "apiroute": "http://localhost:8000",
+            "maxTemp": 29,
+            "minTemp": 4.5,
+            "listener": false,
+            "pollInterval": 10,
+            "timeout": 5000,
+            "validStates": [
+                0,
+                1,
+                2,
+                3
+            ],
+            "model": "eQ3 Bluetooth",
+            "serial": "HomebridgeEQ3",
+            "manufacturer": "eQ3",
+            "firmware": "0.1",
+            "accessory": "HttpThermostat"
+        }
+    ]
+}
