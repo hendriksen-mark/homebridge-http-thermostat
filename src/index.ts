@@ -127,11 +127,11 @@ class HttpThermostat {
       this.server = http.createHttpServer((request, response) => {
         const baseURL = 'http://' + request.headers.host + '/'
         const url = new URL(request.url ?? '/', baseURL)
-        if (this.requestArray.includes(url.pathname.substr(1))) {
+        if (this.requestArray.includes(url.pathname.slice(1))) {
           try {
             this.log.debug('Handling request')
             response.end('Handling request')
-            this._httpHandler(url.pathname.substr(1), url.searchParams.get('value'))
+            this._httpHandler(url.pathname.slice(1), url.searchParams.get('value'))
           } catch (error: any) {
             this.log.warn('Error parsing request: %s', error.message)
           }
