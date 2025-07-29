@@ -248,7 +248,6 @@ class HttpThermostat {
   _getStatus = async (): Promise<void> => {
     let urlObj = { ...this.apiroute };
     urlObj.url = this.apiroute.url + '/status';
-    this.log.debug('Getting status: %s', urlObj.url);
     this.log.info('Getting status from: %s', urlObj.url);
 
     try {
